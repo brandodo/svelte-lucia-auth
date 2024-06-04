@@ -1,11 +1,12 @@
-import { io } from 'socket.io-client';
+import { Socket, io } from 'socket.io-client';
 import { fail, redirect } from '@sveltejs/kit';
 import { lucia } from '$lib/server/auth';
+import type { DefaultEventsMap } from '@socket.io/component-emitter';
 
 /**
  * @type {import("socket.io-client").Socket<import("@socket.io/component-emitter").DefaultEventsMap, import("@socket.io/component-emitter").DefaultEventsMap>}
  */
-let socket;
+let socket: Socket<DefaultEventsMap, DefaultEventsMap>;
 
 // @ts-ignore
 export const load = async ({ locals }) => {
