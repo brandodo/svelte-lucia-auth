@@ -11,14 +11,9 @@ const webSocketServer = {
 		const io = new Server(server.httpServer);
 
 		io.on('connection', (socket) => {
-			console.log('user connected');
-			socket.emit('eventFromServer', 'LETS GOOOO');
-
-			socket.on('messages', (message) => {
-				console.log('sending message', message);
-				// do some server db actions
-
-				io.emit('messageFromServer', message);
+			socket.emit('userJoined', 'A new user has joined the chat');
+			socket.on('messages', ({ username, userId, message, sent_on }) => {
+				io.emit('messageFromServer', { username, userId, message, sent_on });
 			});
 		});
 	}
